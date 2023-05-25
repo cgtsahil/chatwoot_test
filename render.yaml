@@ -1,0 +1,18 @@
+databases:
+  - name: chatwoot_test
+    databaseName: chatwoot_test_ut8z
+    user: chatwoot_test_ut8z_user
+
+services:
+  - type: web
+    name: chatwoot_test
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chatwoot_test_ut8z
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
